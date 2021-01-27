@@ -1,0 +1,7 @@
+.env
+*.DS_Store
+*.pyc
+.idea/
+
+app/*
+!app/

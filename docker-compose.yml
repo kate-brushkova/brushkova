@@ -1,0 +1,26 @@
+version: "3.9"
+   
+services:
+  db:
+    image: postgres
+    env_file: .env
+    ports:
+      - "0.0.0.0:5432:5432"
+    environment:
+      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+    volumes:
+     - django-db-data:/var/lib/postresql/data
+
+  web:
+    build: ./app
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - ./app:/code
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+volumes:
+  django-db-data:
